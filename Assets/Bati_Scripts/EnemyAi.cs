@@ -33,10 +33,11 @@ public class EnemyAi : MonoBehaviour
     
     //attacking
     public float timeBetweenAttacks = 0.2f;
-    bool alreadyAttacked;
+    
     public GameObject projectile;
     public Transform bulletTransform;
-    bool attackBool=false;
+    public bool attackBool=false;
+    public bool alreadyAttacked;
 
     //states
     public float sightRange, attackRange;
@@ -64,13 +65,13 @@ public class EnemyAi : MonoBehaviour
                 state = AIState.Chasing;
                 //playerInSightRange = true;
                 //sawPlayer = true;
-                Debug.Log("enemy saw player");
+                //Debug.Log("enemy saw player");
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hitinfo.distance, Color.red);
             }
             else
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hitinfo.distance, Color.green);
-                Debug.Log("wont see");
+                //Debug.Log("wont see");
                 state = AIState.Idle;
                 attackBool = false;
                 //StopCoroutine("shootingRoutine");
@@ -130,13 +131,15 @@ public class EnemyAi : MonoBehaviour
     }
     IEnumerator shooting()
     {
-        while (attackBool) {
+        if(attackBool) {
             Rigidbody rb = Instantiate(projectile, bulletTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            yield return new WaitForSeconds(timeBetweenAttacks);
+            
             //alreadyAttacked = true;
         }
-       
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        shootingRoutine = null;
+
     }
 
     private void ChasePlayer()
@@ -181,9 +184,7 @@ public class EnemyAi : MonoBehaviour
             shootingRoutine = StartCoroutine(shooting());
 
         }
-        else
-        {
-            StartCoroutine("shootingRoutine"); }
+        
 
         if (!alreadyAttacked)
         {
