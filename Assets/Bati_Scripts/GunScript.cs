@@ -31,18 +31,18 @@ public class GunScript : MonoBehaviour
 
     void Shoot()
     {
-        //muzzleflash.Play();
+        muzzleflash.Play();
 
         RaycastHit hit;
         if (Physics.Raycast(fpscamera.transform.position, fpscamera.transform.forward, out hit, range))
         {
             UnityEngine.Debug.Log(hit.transform.name);
 
-            //Target target = hit.transform.GetComponent<Target>();
-            //if (target != null)
-            //{
-            //    target.TakeDamage(damage);
-            //}
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null)
+            {
+                target.TakeDamage(damage);
+            }
 
             if (hit.rigidbody != null)
             {
@@ -51,6 +51,7 @@ public class GunScript : MonoBehaviour
 
             GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 2f);
+            
         }
 
     }
