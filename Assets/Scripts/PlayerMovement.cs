@@ -16,8 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public float CameraHeightRatio = 0.9f;
     bool crouching = false;
     public KeyCode crouchKey;
+    public KeyCode reloadKey;
+    Animator anim;
     void Start()
     {
+        anim = GameObject.Find("PlayerBody").GetComponent<Animator>();
         crouchSpeed = speed / 2;
         controller = transform.GetComponent<CharacterController>();
         camera = GameObject.Find("Player Camera").GetComponent<Camera>();
