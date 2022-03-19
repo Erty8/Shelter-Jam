@@ -38,13 +38,18 @@ public class GunScript : MonoBehaviour
             Shoot();
             anim.SetBool("Fire", true);
         }
+       
         else if  (Input.GetButton("Fire1") && ammo == 0) 
             {
             anim.SetBool("Reload", true);
         }
+        else
+        {
+            anim.SetBool("Fire", false);
+        }
 
-        
-        
+
+
 
     }
 

@@ -26,6 +26,7 @@ public class PlayerAnimator : MonoBehaviour
         ammoUsed = gunscript.maxAmmo - gunscript.ammo;
         gunscript.ammo = gunscript.maxAmmo;
         gunscript.reserveAmmo -= ammoUsed;
+        anim.SetBool("Reload", false);
     }
 
 }
