@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 4f;
     float targetCharacterHeight = 1.8f;
     public float CrouchingSharpness = 10f;
-    public float CapsuleHeightCrouching = 0.5f;
+    public float CapsuleHeightCrouching = 0.2f;
     public float CapsuleHeightStanding = 1.8f;
     public float CameraHeightRatio = 0.9f;
     bool crouching = false;
