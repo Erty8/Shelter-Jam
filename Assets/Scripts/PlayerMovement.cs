@@ -6,8 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] Camera camera;
     public CharacterController controller;
-    public float speed = 5f;
+    public float speed = 4f;
     public float crouchSpeed = 2f;
+    public float walkSpeed = 4f;
     float targetCharacterHeight = 1.8f;
     public float CrouchingSharpness = 10f;
     public float CapsuleHeightCrouching = 0.5f;
@@ -17,13 +18,22 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode crouchKey;
     void Start()
     {
-        crouchSpeed = speed / 3;
+        crouchSpeed = speed / 2;
         controller = transform.GetComponent<CharacterController>();
         camera = GameObject.Find("Player Camera").GetComponent<Camera>();
     }
     // Update is called once per frame
     void Update()
     {
+        if (crouching)
+        {
+            speed = crouchSpeed;
+
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right*x+transform.forward*z;
