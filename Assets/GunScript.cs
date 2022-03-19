@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using System.Collections;
 
 public class GunScript : MonoBehaviour
 {
@@ -11,12 +12,14 @@ public class GunScript : MonoBehaviour
     public float fireRate = 15f;
     public float impactForce = 30f;
     public int ammo = 13;
-    public int maxAmmo;
+    public int maxAmmo =13 ;
     public int reserveAmmo = 26;
     public Camera fpscamera;
     public ParticleSystem muzzleflash;
     public GameObject impactEffect;
     public Animator anim;
+    bool canreload = true;
+    public bool canshoot = true;
 
     private float nextTimeToFire = 0f;
     private void Start()
@@ -27,12 +30,14 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
         {
+            
             anim.SetBool("Reload", true);
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && ammo>0)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && ammo>0&&canshoot)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
@@ -41,20 +46,28 @@ public class GunScript : MonoBehaviour
        
         else if  (Input.GetButton("Fire1") && ammo == 0) 
             {
-            anim.SetBool("Reload", true);
+            if (canreload)
+            {
+                anim.SetBool("Reload", true);
+            }
+            
         }
         else
         {
             anim.SetBool("Fire", false);
         }
 
-
-
-
     }
-
+    
+    IEnumerator cannotReload()
+    {
+        canreload = false;
+        yield return new WaitForSeconds(4);
+        canreload = true;
+    }
     void Shoot()
     {
+        canshoot = false;
         //muzzleflash.Play();
 
         RaycastHit hit;

@@ -23,10 +23,15 @@ public class PlayerAnimator : MonoBehaviour
     }
     void reload()
     {
+        Debug.Log("reloaded");
         ammoUsed = gunscript.maxAmmo - gunscript.ammo;
         gunscript.ammo = gunscript.maxAmmo;
         gunscript.reserveAmmo -= ammoUsed;
         anim.SetBool("Reload", false);
     }
-
+    void canShoot()
+    {
+        Debug.Log("can shoot");
+        gunscript.canshoot = true;
+    }
 }
