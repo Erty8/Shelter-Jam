@@ -31,11 +31,7 @@ public class GunScript : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.R) && ammo < maxAmmo)
-        {
-            
-            anim.SetBool("Reload", true);
-        }
+        
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && ammo>0&&canshoot)
         {
@@ -43,7 +39,15 @@ public class GunScript : MonoBehaviour
             Shoot();
             anim.SetBool("Fire", true);
         }
-       
+        else if (Input.GetKeyDown(KeyCode.R) && (ammo < maxAmmo))
+        {
+            if (canreload)
+            {
+                anim.SetBool("Reload", true);
+            }
+            
+        }
+
         else if  (Input.GetButton("Fire1") && ammo == 0) 
             {
             if (canreload)
