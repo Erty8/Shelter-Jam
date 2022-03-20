@@ -29,6 +29,10 @@ public class Ui : MonoBehaviour
         player.SetActive(true);
 
             }
+    public void die()
+    {
+        StartCoroutine(nextScene());
+    }
     IEnumerator nextScene()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(currentScene.name+1);
