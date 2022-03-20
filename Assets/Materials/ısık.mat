@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "GoldSar\u0131"
+  m_Name: "\u0131s\u0131k"
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
@@ -74,5 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.14509803, b: 0.1527553, a: 1}
-    - _EmissionColor: {r: 0.3964136, g: 0, b: 0.4234418, a: 1}
+    - _EmissionColor: {r: 0.8962264, g: 0.55808705, b: 0.13020645, a: 1}
   m_BuildTextureStacks: []
