@@ -22,4 +22,10 @@ public class EnemyAnimator : MonoBehaviour
     {
         enemyAi.attackBool = true;
     }
+    void hit() 
+    {
+        anim.SetBool("Hit",false);
+    }
+        
+    
 }
