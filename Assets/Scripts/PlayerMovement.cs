@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             if (!crouching)
             {
                 targetCharacterHeight = CapsuleHeightCrouching;
-
+                
                 crouching = true;
             }
             else

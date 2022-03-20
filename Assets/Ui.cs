@@ -8,6 +8,7 @@ public class Ui : MonoBehaviour
 {
     Camera mainCamera;
     public Camera playerCamera;
+    
     public GameObject player;
     Scene currentScene;
     
@@ -16,6 +17,8 @@ public class Ui : MonoBehaviour
     {
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         currentScene = SceneManager.GetActiveScene();
+        Time.timeScale = 0;
+        
     }
 
     // Update is called once per frame
@@ -26,16 +29,20 @@ public class Ui : MonoBehaviour
     public void startGame() {
         transform.GetComponent<Canvas>().enabled = false;
         mainCamera.enabled = false;
-        player.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        playerCamera.enabled = true;
+        Time.timeScale = 1;
+        //player.SetActive(true);
 
-            }
+    }
     public void die()
     {
         StartCoroutine(nextScene());
     }
     IEnumerator nextScene()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(currentScene.name+1);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(currentScene.name);
         while (!asyncLoad.isDone)
         {
             yield return null;

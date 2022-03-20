@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
         if (transform.tag == "Player")
         {
             phoneCanvas = GameObject.Find("PhoneCanvas").GetComponent<Canvas>();
-            deathCanvas = GameObject.Find("Death Canvas").GetComponent<Canvas>();
+            deathCanvas = GameObject.Find("DeathCanvas").GetComponent<Canvas>();
         }
         
     }
@@ -32,6 +32,8 @@ public class Health : MonoBehaviour
                 deathCanvas.enabled = true;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+            }
+            else  {
             }
             anim.SetBool("Death", true);
         }
