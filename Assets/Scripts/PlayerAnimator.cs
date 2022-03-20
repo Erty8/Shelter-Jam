@@ -21,14 +21,29 @@ public class PlayerAnimator : MonoBehaviour
     {
         
     }
+    //void reload()
+    //{
+    //    if (gunscript.maxAmmo > 0)
+    //    {
+    //        Debug.Log("reloaded");
+    //        ammoUsed = gunscript.maxAmmo - gunscript.ammo;
+    //        gunscript.ammo = gunscript.maxAmmo;
+    //        gunscript.reserveAmmo -= ammoUsed;
+    //        anim.SetBool("Reload", false);
+    //    }       
+    //}
     void reload()
     {
-        Debug.Log("reloaded");
-        ammoUsed = gunscript.maxAmmo - gunscript.ammo;
-        gunscript.ammo = gunscript.maxAmmo;
-        gunscript.reserveAmmo -= ammoUsed;
-        anim.SetBool("Reload", false);
+        if (GunScript.maxAmmo > 0)
+        {
+            Debug.Log("reloaded");
+            ammoUsed = GunScript.maxAmmo - GunScript.ammo;
+            GunScript.ammo = GunScript.maxAmmo;
+            GunScript.reserveAmmo -= ammoUsed;
+            anim.SetBool("Reload", false);
+        }
     }
+
     void canShoot()
     {
         Debug.Log("can shoot");

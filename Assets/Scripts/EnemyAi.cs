@@ -12,7 +12,7 @@ public class EnemyAi : MonoBehaviour
         Forgetting,
         Shooting
     }
-
+    public Animator anim;
     [SerializeField] bool sawPlayer = false;
     public float forgetTime = 1.5f;
     public NavMeshAgent agent;
@@ -46,7 +46,10 @@ public class EnemyAi : MonoBehaviour
     private Coroutine shootingRoutine;
 
     public AIState state = AIState.Idle;
-
+    private void Start()
+    {
+        anim = gameObject.transform.Find("Enemy Body").GetComponent<Animator>();
+    }
     private void Awake()
     {
         player = GameObject.Find("Player").transform;  //playerobj player ismi check
@@ -55,6 +58,7 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
+        animstate();
         Debug.Log("already attack");
         
         //check sight or attack
@@ -86,7 +90,7 @@ public class EnemyAi : MonoBehaviour
         if(Physics.CheckSphere(transform.position, attackRange, whatIsPlayer))
         {
             state = AIState.Shooting;
-            attackBool = true;
+            //attackBool = true;
         }
 
         //if (!playerInAttackRange && !playerInSightRange) Patrolling(); //
@@ -96,8 +100,32 @@ public class EnemyAi : MonoBehaviour
         
 
     }
+    void animstate()
+    {
+        switch (state)
+        {
+            case (AIState.Shooting):
+                anim.SetBool("Attack", true);
+                agent.SetDestination(transform.position);
+                break;
+            case (AIState.Chasing):
+                anim.SetBool("Chase", true);
+                anim.SetBool("Attack", false);
+                agent.speed = 6;
+                break;
+            case (AIState.Forgetting):
+                anim.SetBool("Walk", true);
+                anim.SetBool("Chase", false);
+                agent.speed = 3.5f;
+                break;
+            case (AIState.Idle):
+                anim.SetBool("Idle", true);
+                break;
 
-    private void Patrolling()
+        }
+    }
+
+    private void Patrolling()   
     {
         if (!walkPointSet) SearchWalkPoint();
 
@@ -111,6 +139,15 @@ public class EnemyAi : MonoBehaviour
         //walkppoint Reached
         if (distanceToWalkPoint.magnitude < 1f)
         { walkPointSet = false; }
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(4);
+        agent.SetDestination(transform.position);
+        anim.SetBool("Idle", true);
+        yield return new WaitForSeconds(3);
+        anim.SetBool("Idle", false);
+
     }
 
     private void SearchWalkPoint()
@@ -134,6 +171,7 @@ public class EnemyAi : MonoBehaviour
         if(attackBool) {
             Rigidbody rb = Instantiate(projectile, bulletTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            attackBool = false;
             
             //alreadyAttacked = true;
         }
@@ -165,8 +203,6 @@ public class EnemyAi : MonoBehaviour
         float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y,rotationToLookAt.eulerAngles.y, ref rotateVelocity, rotateSpeedMovement * (Time.deltaTime * 1));
         transform.eulerAngles = new Vector3(0, rotationY, 0);
         ///Attack code here
-
-        
 
         //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
         ///End of attack code

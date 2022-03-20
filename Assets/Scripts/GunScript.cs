@@ -7,13 +7,13 @@ public class GunScript : MonoBehaviour
 {
 
 
-    public float damage = 10f;
+    public float damage = 1f;
     public float range = 100f;
     public float fireRate = 15f;
     public float impactForce = 30f;
-    public int ammo = 13;
-    public int maxAmmo =13 ;
-    public int reserveAmmo = 26;
+    public static int ammo = 13;
+    public static int maxAmmo = 13 ;
+    public static int reserveAmmo = 26;
     public Camera fpscamera;
     public ParticleSystem muzzleflash;
     public GameObject impactEffect;
@@ -33,13 +33,13 @@ public class GunScript : MonoBehaviour
         
         
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && ammo>0&&canshoot)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && ammo>0)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
             anim.SetBool("Fire", true);
         }
-        else if (Input.GetKeyDown(KeyCode.R) && (ammo < maxAmmo))
+        else if (Input.GetKeyDown(KeyCode.R) && (maxAmmo>ammo))
         {
             if (canreload)
             {
@@ -48,9 +48,9 @@ public class GunScript : MonoBehaviour
             
         }
 
-        else if  (Input.GetButton("Fire1") && ammo == 0) 
+        else if  (Input.GetButtonDown("Fire1")) 
             {
-            if (canreload)
+            if (canreload && ammo == 0)
             {
                 anim.SetBool("Reload", true);
             }
@@ -89,7 +89,11 @@ public class GunScript : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
-
+            if(hit.collider.gameObject.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<Health>().takeDamage(1);
+            }
+            
             //GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             if (ammo >= 0)
             {
