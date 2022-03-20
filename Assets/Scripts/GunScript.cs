@@ -93,7 +93,11 @@ public class GunScript : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<Health>().takeDamage(1);
             }
-            
+            if (hit.collider.gameObject.tag == "Head")
+            {
+                hit.collider.gameObject.GetComponentInParent<Health>().takeDamage(10);
+            }
+
             //GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             if (ammo >= 0)
             {
