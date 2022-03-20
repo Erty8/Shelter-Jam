@@ -120,8 +120,8 @@ public class EnemyAi : MonoBehaviour
                 break;
             case (AIState.Idle):
                 anim.SetBool("Idle", true);
-                
-                break;
+                Debug.Log("AgentSpeed" + agent.speed);
+                break; 
 
         }
     }
@@ -133,6 +133,7 @@ public class EnemyAi : MonoBehaviour
         if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+            Debug.Log("destination set"+ walkPoint);
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -143,11 +144,11 @@ public class EnemyAi : MonoBehaviour
     }
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         anim.SetBool("Walk", false);
         agent.SetDestination(transform.position);
         anim.SetBool("Idle", true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         anim.SetBool("Walk", true);
         anim.SetBool("Idle", false);
 
