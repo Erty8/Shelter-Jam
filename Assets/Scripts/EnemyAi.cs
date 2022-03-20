@@ -28,7 +28,7 @@ public class EnemyAi : MonoBehaviour
 
     //patrolling
     public Vector3 walkPoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
     
     //attacking
@@ -111,15 +111,16 @@ public class EnemyAi : MonoBehaviour
             case (AIState.Chasing):
                 anim.SetBool("Chase", true);
                 anim.SetBool("Attack", false);
-                agent.speed = 6;
+                agent.speed = 4;
                 break;
             case (AIState.Forgetting):
                 anim.SetBool("Walk", true);
                 anim.SetBool("Chase", false);
-                agent.speed = 3.5f;
+                agent.speed = 1.5f;
                 break;
             case (AIState.Idle):
                 anim.SetBool("Idle", true);
+                
                 break;
 
         }
@@ -135,17 +136,19 @@ public class EnemyAi : MonoBehaviour
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
+        StartCoroutine (wait());
         //walkppoint Reached
         if (distanceToWalkPoint.magnitude < 1f)
         { walkPointSet = false; }
     }
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
+        anim.SetBool("Walk", false);
         agent.SetDestination(transform.position);
         anim.SetBool("Idle", true);
         yield return new WaitForSeconds(3);
+        anim.SetBool("Walk", true);
         anim.SetBool("Idle", false);
 
     }
@@ -162,9 +165,16 @@ public class EnemyAi : MonoBehaviour
         {
             walkPointSet = true;
             //state = AIState.Idle;
-        }
+            //NavMeshHit hit;
+            //if (NavMesh.SamplePosition(walkPoint, out hit, 1.0f, NavMesh.AllAreas))
             
-        
+                //walkPoint = hit.position;
+                //walkPointSet = true;
+            
+        }
+       
+
+
     }
     IEnumerator shooting()
     {

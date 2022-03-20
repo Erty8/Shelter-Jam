@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.1
-    agentHeight: 2
+    agentRadius: 0.3
+    agentHeight: 1.5
     agentSlope: 40
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.033333335
+    cellSize: 0.1
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -170,6 +170,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: -0.15403736
       objectReference: {fileID: 0}
+    - target: {fileID: 1278555888381469339, guid: db0362a915e934f66acce574d7b743b7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1278555888381469348, guid: db0362a915e934f66acce574d7b743b7, type: 3}
       propertyPath: health
       value: 4
@@ -177,6 +181,10 @@ PrefabInstance:
     - target: {fileID: 1278555888381469348, guid: db0362a915e934f66acce574d7b743b7, type: 3}
       propertyPath: sightRange
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278555888381469348, guid: db0362a915e934f66acce574d7b743b7, type: 3}
+      propertyPath: walkPointRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1278555888381469350, guid: db0362a915e934f66acce574d7b743b7, type: 3}
       propertyPath: m_RootOrder
@@ -221,6 +229,14 @@ PrefabInstance:
     - target: {fileID: 1278555888381469350, guid: db0362a915e934f66acce574d7b743b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278555888381469351, guid: db0362a915e934f66acce574d7b743b7, type: 3}
+      propertyPath: m_Height
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278555888381469351, guid: db0362a915e934f66acce574d7b743b7, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1278555888381469351, guid: db0362a915e934f66acce574d7b743b7, type: 3}
       propertyPath: m_Enabled
@@ -1663,7 +1679,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241474316}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 5, y: 0.00001, z: 5}
