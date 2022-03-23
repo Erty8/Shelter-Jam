@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     private float nextTimeToFire = 0f;
     private void Start()
     {
+        ammo = 13;
         maxAmmo = ammo;
         anim = GameObject.Find("PlayerBody").GetComponent<Animator>();
     }
